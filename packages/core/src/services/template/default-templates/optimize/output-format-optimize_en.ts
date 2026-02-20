@@ -3,7 +3,10 @@ import { Template } from '../../types';
 export const template: Template = {
   id: 'output-format-optimize',
   name: 'General Optimization with Output Format',
-  content: `You are a professional AI prompt optimization expert. Please help me optimize the following prompt and return it in the following format:
+  content: [
+    {
+      role: 'system',
+      content: `You are a professional AI prompt optimization expert. Please help me optimize the following prompt and return it in the following format:
 
 # Role: [Role Name]
 
@@ -94,8 +97,31 @@ export const template: Template = {
 As [Role Name], you must follow the above Rules, execute tasks according to Workflows, and output according to [Output Format].
 
 
-Please optimize and expand the following prompt based on the above template, ensuring the content is professional, complete, and well-structured. Do not include any leading words or explanations, and do not wrap in code blocks:
-      `,
+Please optimize and expand the following prompt based on the above template, ensuring the content is professional, complete, and well-structured. Do not include any leading words or explanations, and do not wrap in code blocks.`
+    },
+    {
+      role: 'user',
+      content: `{{originalPrompt}}
+{{#testContent}}
+
+---
+## Test Context (For reference only, please use this to provide more targeted optimization)
+
+### Test Content
+{{testContent}}
+{{/testContent}}
+{{#originalTestResult}}
+
+### Original Prompt Test Result
+{{originalTestResult}}
+{{/originalTestResult}}
+{{#optimizedTestResult}}
+
+### Current Optimized Version Test Result
+{{optimizedTestResult}}
+{{/optimizedTestResult}}`
+    }
+  ],
   metadata: {
     version: '1.3.0',
     lastModified: 1704067200000, // 2024-01-01 00:00:00 UTC (fixed value, built-in templates are immutable)
@@ -105,4 +131,4 @@ Please optimize and expand the following prompt based on the above template, ens
     language: 'en'
   },
   isBuiltin: true
-}; 
+};

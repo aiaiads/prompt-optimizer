@@ -47,6 +47,24 @@ export const template: Template = {
       content: `请分析并优化以下Prompt，将其转化为结构化的高质量Prompt：
 
 {{originalPrompt}}
+{{#testContent}}
+
+---
+## 测试上下文（仅供参考，请据此提供更有针对性的优化）
+
+### 测试内容
+{{testContent}}
+{{/testContent}}
+{{#originalTestResult}}
+
+### 原始提示词的测试结果
+{{originalTestResult}}
+{{/originalTestResult}}
+{{#optimizedTestResult}}
+
+### 当前优化版本的测试结果
+{{optimizedTestResult}}
+{{/optimizedTestResult}}
 
 请按照以下要求进行优化：
 

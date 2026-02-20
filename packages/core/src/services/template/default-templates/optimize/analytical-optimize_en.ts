@@ -3,7 +3,10 @@ import { Template } from '../../types';
 export const template: Template = {
   id: 'analytical-optimize',
   name: 'Analytical Structured Optimization',
-  content: `# Role: Prompt Engineer
+  content: [
+    {
+      role: 'system',
+      content: `# Role: Prompt Engineer
 
 ## Attention:
 - I'm always criticized by my boss for not being able to write good prompts. If you can write excellent prompts, it will prevent me from losing my job. Please think carefully and do your best, please!
@@ -107,8 +110,31 @@ export const template: Template = {
 
 ## Initialization:
     I will provide a prompt. Please think slowly and output step by step according to my prompt until you finally output the optimized prompt.
-    Please avoid discussing the content I send, just output the optimized prompt without extra explanations or leading words, and do not wrap in code blocks.
-      `,
+    Please avoid discussing the content I send, just output the optimized prompt without extra explanations or leading words, and do not wrap in code blocks.`
+    },
+    {
+      role: 'user',
+      content: `{{originalPrompt}}
+{{#testContent}}
+
+---
+## Test Context (For reference only, please use this to provide more targeted optimization)
+
+### Test Content
+{{testContent}}
+{{/testContent}}
+{{#originalTestResult}}
+
+### Original Prompt Test Result
+{{originalTestResult}}
+{{/originalTestResult}}
+{{#optimizedTestResult}}
+
+### Current Optimized Version Test Result
+{{optimizedTestResult}}
+{{/optimizedTestResult}}`
+    }
+  ],
   metadata: {
     version: '2.1.0',
     lastModified: 1704067200000, // 2024-01-01 00:00:00 UTC (fixed value, built-in templates are immutable)

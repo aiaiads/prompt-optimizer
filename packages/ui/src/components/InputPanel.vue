@@ -204,7 +204,21 @@
 
             <!-- 提交按钮区域 -->
             <NGridItem :span="5" :xs="24" :sm="5" class="flex items-end">
-                <NSpace :size="8" justify="end" style="width: 100%">
+                <NSpace :size="8" justify="end" align="center" style="width: 100%">
+                    <!-- 包含测试上下文 Checkbox -->
+                    <NTooltip v-if="showTestContextOptions" trigger="hover">
+                        <template #trigger>
+                            <NCheckbox
+                                :checked="includeTestContext"
+                                @update:checked="$emit('update:includeTestContext', $event)"
+                                size="small"
+                                :data-testid="`${testIdPrefix}-include-test-context`"
+                            >
+                                {{ $t('promptOptimizer.includeTestContext') }}
+                            </NCheckbox>
+                        </template>
+                        {{ $t('promptOptimizer.includeTestContextTooltip') }}
+                    </NTooltip>
                     <!-- 分析按钮（与优化同级） -->
                     <NButton
                         v-if="showAnalyzeButton"
@@ -259,6 +273,8 @@ import {
     NGridItem,
     NIcon,
     NPopover,
+    NCheckbox,
+    NTooltip,
 } from "naive-ui";
 import { useFullscreen } from '../composables/ui/useFullscreen';
 import FullscreenDialog from "./FullscreenDialog.vue";
@@ -305,6 +321,11 @@ interface Props {
     /** 分析按钮是否正在加载 */
     analyzeLoading?: boolean;
 
+    /** 是否显示测试上下文选项 */
+    showTestContextOptions?: boolean;
+    /** 是否包含测试上下文 */
+    includeTestContext?: boolean;
+
     /** 🆕 是否显示AI提取变量按钮 */
     showExtractButton?: boolean;
     /** 🆕 AI提取变量是否进行中 */
@@ -338,6 +359,8 @@ const props = withDefaults(defineProps<Props>(), {
     helpText: "",
     showAnalyzeButton: false,
     analyzeLoading: false,
+    showTestContextOptions: false,
+    includeTestContext: false,
     showExtractButton: false,
     extracting: false,
     enableVariableExtraction: false,
@@ -357,6 +380,8 @@ const emit = defineEmits<{
     analyze: [];
     configModel: [];
     "open-preview": [];
+    /** “包含测试上下文”勾选状态变更 */
+    "update:includeTestContext": [value: boolean];
     /** 🆕 AI提取变量事件 */
     "extract-variables": [];
     /** 🆕 变量提取事件 */

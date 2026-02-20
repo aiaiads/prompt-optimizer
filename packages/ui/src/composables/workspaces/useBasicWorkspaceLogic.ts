@@ -154,8 +154,14 @@ export function useBasicWorkspaceLogic(options: UseBasicWorkspaceLogicOptions) {
 
   /**
    * 1. 优化提示词
+   * @param options 可选参数，includeTestContext 为 true 时将测试内容和结果附带到优化请求中
    */
-  const handleOptimize = async () => {
+  const handleOptimize = async (options?: {
+    includeTestContext?: boolean
+    testContent?: string
+    originalTestResult?: string
+    optimizedTestResult?: string
+  }) => {
     if (!prompt.value?.trim() || isOptimizing.value) return
 
     const promptService = services.value?.promptService
@@ -187,11 +193,22 @@ export function useBasicWorkspaceLogic(options: UseBasicWorkspaceLogicOptions) {
     })
 
     try {
+      // 构建测试上下文变量
+      const variables: Record<string, string> = {}
+      if (options?.includeTestContext) {
+        if (options.testContent) variables.testContent = options.testContent
+        if (options.originalTestResult) variables.originalTestResult = options.originalTestResult
+        if (options.optimizedTestResult) variables.optimizedTestResult = options.optimizedTestResult
+      }
+
       const request: OptimizationRequest = {
         optimizationMode,
         targetPrompt: prompt.value,
         templateId,
-        modelKey
+        modelKey,
+        ...(Object.keys(variables).length > 0 ? {
+          advancedContext: { variables }
+        } : {})
       }
 
       await promptService.optimizePromptStream(request, {
