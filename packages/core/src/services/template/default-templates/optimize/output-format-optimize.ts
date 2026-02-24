@@ -3,10 +3,7 @@ import { Template } from '../../types';
 export const template: Template = {
   id: 'output-format-optimize',
   name: '通用优化-带输出格式要求',
-  content: [
-    {
-      role: 'system',
-      content: `你是一个专业的AI提示词优化专家。请帮我优化以下prompt，并按照以下格式返回：
+  content: `你是一个专业的AI提示词优化专家。请帮我优化以下prompt，并按照以下格式返回：
 
 # Role: [角色名称]
 
@@ -97,31 +94,8 @@ export const template: Template = {
 作为[角色名称]，你必须遵守上述Rules，按照Workflows执行任务，并按照[输出格式]输出。
 
 
-请基于以上模板，优化并扩展以下prompt，确保内容专业、完整且结构清晰，注意不要携带任何引导词或解释，不要使用代码块包围。`
-    },
-    {
-      role: 'user',
-      content: `{{originalPrompt}}
-{{#testContent}}
-
----
-## 测试上下文（仅供参考，请据此提供更有针对性的优化）
-
-### 测试内容
-{{testContent}}
-{{/testContent}}
-{{#originalTestResult}}
-
-### 原始提示词的测试结果
-{{originalTestResult}}
-{{/originalTestResult}}
-{{#optimizedTestResult}}
-
-### 当前优化版本的测试结果
-{{optimizedTestResult}}
-{{/optimizedTestResult}}`
-    }
-  ],
+请基于以上模板，优化并扩展以下prompt，确保内容专业、完整且结构清晰，注意不要携带任何引导词或解释，不要使用代码块包围：
+      `,
   metadata: {
     version: '1.3.0',
     lastModified: 1704067200000, // 2024-01-01 00:00:00 UTC (固定值，内置模板不可修改)
@@ -131,4 +105,4 @@ export const template: Template = {
     language: 'zh'
   },
   isBuiltin: true
-};
+}; 

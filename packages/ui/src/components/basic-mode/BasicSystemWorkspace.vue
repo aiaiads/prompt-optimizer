@@ -71,9 +71,7 @@
                         :show-preview="false"
                         :show-analyze-button="true"
                         :analyze-loading="analyzing"
-                        :show-test-context-options="true"
-                        v-model:include-test-context="includeTestContext"
-                        @submit="handleOptimizeWithContext"
+                        @submit="logic.handleOptimize"
                         @analyze="handleAnalyze"
                         @configModel="handleOpenModelManager"
                     >
@@ -588,26 +586,6 @@ const promptPanelRef = ref<PromptPanelExpose>(null)
 
 // 输入区折叠状态（初始展开）
 const isInputPanelCollapsed = ref(false)
-
-// 测试上下文 Checkbox 状态
-const includeTestContext = ref(false)
-
-// 带测试上下文的优化
-const handleOptimizeWithContext = () => {
-  if (!includeTestContext.value) {
-    logic.handleOptimize()
-    return
-  }
-
-  // 收集测试上下文数据：variant 'a' = 原始提示词测试结果，variant 'b' = 最新版本测试结果
-  const variantResults = session.testVariantResults
-  logic.handleOptimize({
-    includeTestContext: true,
-    testContent: logic.testContent.value || undefined,
-    originalTestResult: variantResults.a?.result || undefined,
-    optimizedTestResult: variantResults.b?.result || undefined,
-  })
-}
 
 // 提示词摘要（折叠态显示）
 const promptSummary = computed(() => {

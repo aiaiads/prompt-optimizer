@@ -463,8 +463,6 @@ export default {
       "Provide conversation background for optimization to help AI better understand optimization goals",
     enterPrompt: "Enter Prompt",
     placeholder: "Enter the prompt you want to optimize...",
-    includeTestContext: "Include Test Context",
-    includeTestContextTooltip: "When checked, test content, original prompt test result, and latest version test result will be included during optimization",
 
     // Pro Multi default conversation context (used only when context is empty)
     defaultOptimizationContext: {

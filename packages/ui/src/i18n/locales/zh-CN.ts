@@ -448,8 +448,6 @@ export default {
     contextDescription: "为优化提供会话背景，帮助AI更好地理解优化目标",
     enterPrompt: "输入提示词",
     placeholder: "请输入需要优化的提示词...",
-    includeTestContext: "包含测试上下文",
-    includeTestContextTooltip: "勾选后，优化时将附带测试内容、原始提示词和最新版本的测试结果",
 
     // Pro Multi 默认上下文示例（首次进入且上下文为空时使用）
     defaultOptimizationContext: {
